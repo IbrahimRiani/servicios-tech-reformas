@@ -1,18 +1,18 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
-import { CheckCircle, Star, Award, Users } from 'lucide-react'
+import { Star, Award, Users } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import HeroParallax from '@/components/HeroParallax'
 import ServiceCards from '@/components/ServiceCards'
+import SuccessCases from '@/components/SuccessCases'
 import { usePricingModal } from '@/context/PricingModalContext'
 
 const partners = [
-  { name: 'BASF', logo: '/logos/basf.svg' },
-  { name: 'Fischer', logo: '/logos/fischer.svg' },
-  { name: 'Bostik', logo: '/logos/bostik.svg' },
-  { name: 'Ceys', logo: '/logos/ceys.svg' },
+  { name: 'BASF' },
+  { name: 'Fischer' },
+  { name: 'Bostik' },
+  { name: 'Ceys' },
 ]
 
 const processSteps = [
@@ -45,7 +45,7 @@ export default function Home() {
 
       <HeroParallax />
 
-      <section className="py-12 px-6 border-y border-white/5">
+      <section className="py-24 px-6 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-60 grayscale">
             {partners.map((partner) => (
@@ -57,29 +57,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 px-6">
+      <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Nuestro <span className="text-gradient">Proceso</span>
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 text-xl max-w-2xl mx-auto">
               Tres pasos simples para transformar tu espacio. Sin complicaciones, sin sorpresas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {processSteps.map((item, index) => (
-              <div key={index} className="relative group">
-                <div className="absolute top-0 left-8 w-px h-full bg-gradient-to-b from-blue-500/50 to-transparent group-hover:from-blue-500 transition-colors" />
-                <div className="glass p-8 rounded-3xl hover:glow-hover transition-all duration-300 ml-4">
-                  <div className="text-4xl mb-4">{item.icon}</div>
-                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold mb-4">
-                    {item.step}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
-                  <p className="text-gray-400">{item.description}</p>
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-500/20 transition-colors">
+                  <span className="text-3xl">{item.icon}</span>
                 </div>
+                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4 text-blue-400 font-bold">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                <p className="text-gray-400">{item.description}</p>
               </div>
             ))}
           </div>
@@ -88,62 +87,64 @@ export default function Home() {
 
       <ServiceCards />
 
-      <section className="py-24 px-6 bg-gradient-to-b from-background to-blue-900/10">
+      <SuccessCases />
+
+      <section className="py-32 px-6 bg-gradient-to-b from-background to-blue-900/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             ¿Listo para transformar tu espacio?
           </h2>
-          <p className="text-gray-400 text-lg mb-8">
+          <p className="text-gray-400 text-xl mb-10">
             Únete a más de 500 clientes satisfechos que han transformado su hogar con nosotros.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button 
               onClick={() => openModal()}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-full hover:scale-110 transition-transform"
+              className="px-8 py-5 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-full hover:scale-105 transition-transform"
             >
               Calcula tu presupuesto
             </button>
-            <Link href="/proceso" className="px-8 py-4 glass text-white font-semibold rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
+            <Link href="/proceso" className="px-8 py-5 glass text-white font-semibold rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
               Ver proceso
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 mt-16">
+          <div className="grid grid-cols-3 gap-12 mt-20">
             <div>
-              <div className="flex items-center justify-center gap-1 mb-2">
+              <div className="flex items-center justify-center gap-1 mb-3">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} className="w-5 h-5 fill-blue-400 text-blue-400" />
                 ))}
               </div>
-              <p className="text-sm text-gray-400">4.9/5 en Google</p>
+              <p className="text-gray-400">4.9/5 en Google</p>
             </div>
             <div>
-              <Users className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-              <p className="text-sm text-gray-400">500+ clientes</p>
+              <Users className="w-10 h-10 text-blue-400 mx-auto mb-3" />
+              <p className="text-gray-400">500+ clientes</p>
             </div>
             <div>
-              <Award className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-              <p className="text-sm text-gray-400">5 años garantía</p>
+              <Award className="w-10 h-10 text-blue-400 mx-auto mb-3" />
+              <p className="text-gray-400">5 años garantía</p>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="py-16 px-6 border-t border-white/10">
+      <footer className="py-20 px-6 border-t border-white/10">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div>
               <h3 className="text-2xl font-bold mb-4">
                 <span className="text-gradient">Reformas</span>
                 <span className="text-white">Pro</span>
               </h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400">
                 El futuro de las reformas llegó. Tecnología IA + calidad premium.
               </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Servicios</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <ul className="space-y-3 text-gray-400">
                 <li><Link href="/servicios/reformas-integrales" className="hover:text-blue-400">Reformas Integrales</Link></li>
                 <li><Link href="/servicios/pintura-tecnica" className="hover:text-blue-400">Pintura Técnica</Link></li>
                 <li><Link href="/servicios/limpieza-industrial" className="hover:text-blue-400">Limpieza Industrial</Link></li>
@@ -151,21 +152,21 @@ export default function Home() {
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Empresa</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <ul className="space-y-3 text-gray-400">
                 <li><Link href="/proceso" className="hover:text-blue-400">Proceso</Link></li>
                 <li><Link href="/contacto" className="hover:text-blue-400">Contacto</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Legal</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <ul className="space-y-3 text-gray-400">
                 <li><Link href="/aviso-legal" className="hover:text-blue-400">Aviso Legal</Link></li>
                 <li><Link href="/privacidad" className="hover:text-blue-400">Política de Privacidad</Link></li>
               </ul>
             </div>
           </div>
           <div className="text-center pt-8 border-t border-white/5">
-            <p className="text-gray-500 text-sm">© 2024 ReformasPro. Todos los derechos reservados.</p>
+            <p className="text-gray-500">© 2024 ReformasPro. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
