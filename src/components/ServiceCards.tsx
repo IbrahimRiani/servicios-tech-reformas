@@ -34,7 +34,7 @@ const services: ServiceCard[] = [
     stat: '500+ fachadas',
   },
   {
-    title: 'Limpieza Industrial',
+    title: 'Limpieza Profesional',
     description: 'Servicios de limpieza profesional para comunidades, oficinas y espacios comerciales.',
     icon: <Droplets className="w-8 h-8 text-blue-400" />,
     features: ['Equipos industriales', 'Productos biodegradables', 'Personal cualificado', 'Disponibilidad 24h'],
@@ -70,7 +70,7 @@ export default function ServiceCards() {
             <Link
               key={service.slug}
               href={`/servicios/${service.slug}`}
-              className={`relative p-8 rounded-3xl glass transition-all duration-500 cursor-pointer group ${hoveredIndex === index ? 'glow-hover' : ''}`}
+              className={`relative p-8 rounded-3xl glass transition-all duration-500 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >

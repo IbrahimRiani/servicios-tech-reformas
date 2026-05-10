@@ -101,7 +101,7 @@ export const services: Service[] = [
   },
   {
     slug: 'limpieza-industrial',
-    title: 'Limpieza Industrial',
+    title: 'Limpieza Profesional',
     description: 'Servicios de limpieza profesional para comunidades, oficinas y espacios comerciales.',
     fullDescription: 'Ofrecemos servicios de limpieza industrial con equipos de última generación y personal altamente formado. Nuestra metodología garantiza resultados superiores en comunidades de vecinos, oficinas, naves industriales y comerciales. Disponemos de horarios flexibles para minimizar la interrupción de tu actividad.',
     keywords: [
@@ -125,7 +125,7 @@ export const services: Service[] = [
     ],
     faq: [
       {
-        question: '¿Qué frequency de limpieza ofrecen?',
+        question: '¿Qué frecuencia de limpieza ofrecen?',
         answer: 'Ofrecemos servicios diarios, semanales o mensuales según las necesidades de cada cliente.',
       },
       {

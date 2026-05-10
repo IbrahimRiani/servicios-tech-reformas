@@ -147,7 +147,7 @@ export default function Home() {
               <ul className="space-y-3 text-gray-400">
                 <li><Link href="/servicios/reformas-integrales" className="hover:text-blue-400">Reformas Integrales</Link></li>
                 <li><Link href="/servicios/pintura-tecnica" className="hover:text-blue-400">Pintura Técnica</Link></li>
-                <li><Link href="/servicios/limpieza-industrial" className="hover:text-blue-400">Limpieza Industrial</Link></li>
+                <li><Link href="/servicios/limpieza-industrial" className="hover:text-blue-400">Limpieza Profesional</Link></li>
               </ul>
             </div>
             <div>

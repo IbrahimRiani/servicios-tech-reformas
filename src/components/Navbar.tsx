@@ -25,13 +25,13 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/servicios" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/servicios" className="text-white font-medium drop-shadow-md hover:text-blue-300 transition-colors">
             Servicios
           </Link>
-          <Link href="/proceso" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/proceso" className="text-white font-medium drop-shadow-md hover:text-blue-300 transition-colors">
             Proceso
           </Link>
-          <Link href="/contacto" className="text-gray-300 hover:text-white transition-colors">
+          <Link href="/contacto" className="text-white font-medium drop-shadow-md hover:text-blue-300 transition-colors">
             Contacto
           </Link>
         </div>
@@ -52,13 +52,13 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden glass mt-2 mx-6 rounded-2xl p-6">
           <div className="flex flex-col gap-4">
-            <Link href="/servicios" className="text-gray-300 hover:text-white">
+            <Link href="/servicios" className="text-white font-medium">
               Servicios
             </Link>
-            <Link href="/proceso" className="text-gray-300 hover:text-white">
+            <Link href="/proceso" className="text-white font-medium">
               Proceso
             </Link>
-            <Link href="/contacto" className="text-gray-300 hover:text-white">
+            <Link href="/contacto" className="text-white font-medium">
               Contacto
             </Link>
             <button 

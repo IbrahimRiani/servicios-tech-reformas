@@ -150,13 +150,13 @@ function ContactoContent() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full bg-black/50 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
                   >
-                    <option value="">Selecciona un servicio</option>
-                    <option value="reformas">Reformas Integrales</option>
-                    <option value="pintura">Pintura Técnica</option>
-                    <option value="limpieza">Limpieza Industrial</option>
-                    <option value="otro">Otro</option>
+                    <option value="" className="text-gray-400">Selecciona un servicio</option>
+                    <option value="reformas" className="text-white">Reformas Integrales</option>
+                    <option value="pintura" className="text-white">Pintura Técnica</option>
+                    <option value="limpieza" className="text-white">Limpieza Profesional</option>
+                    <option value="otro" className="text-white">Otro</option>
                   </select>
                 </div>
 
