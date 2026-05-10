@@ -18,7 +18,7 @@ export default function PrivacidadPage() {
           <div className="glass rounded-3xl p-8 space-y-6 text-gray-300">
             <h2 className="text-2xl font-bold text-white">1. Responsable del tratamiento</h2>
             <p>
-              El responsable del tratamiento de sus datos personales es ReformasPro, con domicilio en Madrid, España, y email de contacto: hola@reformaspro.es
+              El responsable del tratamiento de sus datos personales es ReformasPro, con domicilio en Madrid, España, y email de contacto: info@reformaspro.live
             </p>
 
             <h2 className="text-2xl font-bold text-white pt-4">2. Finalidad del tratamiento</h2>

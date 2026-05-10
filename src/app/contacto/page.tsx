@@ -204,7 +204,7 @@ function ContactoContent() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Teléfono</p>
-                      <p className="text-white font-semibold">+34 900 000 000</p>
+                      <p className="text-white font-semibold">+34 684 059 232</p>
                     </div>
                   </div>
 
@@ -214,7 +214,7 @@ function ContactoContent() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Email</p>
-                      <p className="text-white font-semibold">hola@reformaspro.es</p>
+                      <p className="text-white font-semibold">info@reformaspro.live</p>
                     </div>
                   </div>
 

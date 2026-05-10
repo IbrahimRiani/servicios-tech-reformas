@@ -24,7 +24,7 @@ export default function AvisoLegalPage() {
               <li><strong>Denominación social:</strong> ReformasPro</li>
               <li><strong>NIF:</strong> XXXXXXXXXX</li>
               <li><strong>Domicilio:</strong> Madrid, España</li>
-              <li><strong>Email:</strong> hola@reformaspro.es</li>
+              <li><strong>Email:</strong> info@reformaspro.live</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-white pt-4">2. Objeto</h2>

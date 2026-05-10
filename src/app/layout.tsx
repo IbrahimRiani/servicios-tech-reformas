@@ -4,14 +4,23 @@ import Providers from '@/components/Providers'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
 export const metadata: Metadata = {
-  title: 'Reformas Premium - El Futuro de las Reformas',
-  description: 'Servicios de reformas integrales, pintura técnica y limpieza industrial con tecnología IA. Consigue tu presupuesto en segundos.',
-  keywords: 'reformas, pintura, limpieza industrial, presupuesto online, reformas Madrid',
+  title: 'ReformasPro AI - Reformas, Pintura y Limpieza con Inteligencia Artificial',
+  description: 'Servicio de reformas integrales, pintura técnica y limpieza industrial con IA. Consigue tu presupuesto instantáneo. Madrid y España.',
+  keywords: 'reformas, pintura, limpieza industrial, presupuesto IA, reformas Madrid, servicio técnico',
   openGraph: {
-    title: 'Reformas Premium - El Futuro de las Reformas',
+    title: 'ReformasPro AI - El futuro de las reformas',
     description: 'Servicios de reformas integrales, pintura técnica y limpieza industrial con tecnología IA.',
-    type: 'website',
+    url: 'https://reformaspro.live',
+    siteName: 'ReformasPro',
     locale: 'es_ES',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: 'https://reformaspro.live',
   },
 }
 
