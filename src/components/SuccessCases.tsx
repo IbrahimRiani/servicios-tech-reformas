@@ -48,14 +48,14 @@ export default function SuccessCases() {
           {cases.map((item, index) => (
             <div 
               key={index}
-              className="group glass rounded-3xl overflow-hidden hover:glow-hover transition-all duration-500"
+              className="glass rounded-3xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
             >
-              <div className="relative h-56 w-full overflow-hidden">
+              <div className="relative h-56 w-full">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030712] to-transparent" />
               </div>

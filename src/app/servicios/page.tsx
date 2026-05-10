@@ -34,14 +34,14 @@ export default function ServiciosPage() {
               <Link
                 key={service.slug}
                 href={`/servicios/${service.slug}`}
-                className="group relative glass rounded-3xl overflow-hidden hover:glow-hover transition-all duration-500"
+                className="group relative glass rounded-3xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
               >
-                <div className="relative h-64 w-full">
+                <div className="relative h-64 w-full overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 </div>
