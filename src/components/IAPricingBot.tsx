@@ -10,39 +10,8 @@ interface Message {
   role: 'bot' | 'user'
   content: string
   image?: string
-  budget?: BudgetResult
-  isConfirming?: boolean
+  showButtons?: boolean
 }
-
-interface BudgetResult {
-  service: string
-  metrosCuadrados: number
-  estado: string
-  presupuestoMin: number
-  presupuestoMax: number
-  desglose: { item: string; precio: number }[]
-  recomendacion: string
-  plazoDias: number
-}
-
-function formatBudgetResponse(data: any): BudgetResult | null {
-  try {
-    return {
-      service: data.servicio || 'pintura',
-      metrosCuadrados: data.metrosCuadrados || 50,
-      estado: data.estado || 'regular',
-      presupuestoMin: data.presupuestoMin || 500,
-      presupuestoMax: data.presupuestoMax || 1500,
-      desglose: data.desglose || [],
-      recomendacion: data.recomendacion || '',
-      plazoDias: data.plazoDias || 7,
-    }
-  } catch {
-    return null
-  }
-}
-
-const COBALT_BLUE = '#1d4ed8'
 
 export default function IAPricingBot() {
   const [messages, setMessages] = useState<Message[]>([
@@ -104,70 +73,33 @@ export default function IAPricingBot() {
       setIsAnalyzing(false)
 
       if (result.success) {
+        let responseContent = result.text || ''
+
         if (result.data) {
-          const budget = formatBudgetResponse(result.data)
-          
-          if (budget) {
-            let responseContent = result.text || ''
-
-            if (budget.recomendacion) {
-              responseContent += `<br/><br/>🎯 <strong>Mi análisis técnico:</strong> ${budget.recomendacion}`
-            }
-
-            responseContent += `<br/><br/>
-📐 <strong style="color:${COBALT_BLUE}">Superficie:</strong> ${budget.metrosCuadrados} m²<br/>
-🏠 <strong style="color:${COBALT_BLUE}">Estado:</strong> ${budget.estado}<br/>
-⏱️ <strong style="color:${COBALT_BLUE}">Plazo estimado:</strong> ${budget.plazoDias} días<br/><br/>
-💰 <strong style="color:${COBALT_BLUE}">PRESUPUESTO:</strong> <span class="text-2xl font-bold" style="color:${COBALT_BLUE}">${budget.presupuestoMin}€ - ${budget.presupuestoMax}€</span><br/><br/>`
-
-            if (budget.desglose.length > 0) {
-              responseContent += `<strong>Desglose:</strong><br/>`
-              budget.desglose.forEach(b => {
-                responseContent += `<div class="flex justify-between py-1"><span class="text-gray-400">${b.item}</span><span style="color:${COBALT_BLUE}">${b.precio}€</span></div>`
-              })
-            }
-
-            responseContent += `<div class="mt-4 p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-<strong style="color:${COBALT_BLUE}">✓</strong> Materiales de primera calidad<br/>
-<strong style="color:${COBALT_BLUE}">✓</strong> Garantía de 5 años<br/>
-<strong style="color:${COBALT_BLUE}">✓</strong> Sin compromiso
-</div>`
-
-            responseContent += `<p class="mt-4 text-gray-300 text-sm"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
-
-            setMessages((prev) => [
-              ...prev,
-              {
-                role: 'bot',
-                content: responseContent,
-                budget,
-                isConfirming: true,
-              },
-            ])
-          } else {
-            setMessages((prev) => [
-              ...prev,
-              {
-                role: 'bot',
-                content: result.text || 'He procesado tu solicitud. ¿Podrías darme más detalles sobre el espacio?',
-              },
-            ])
-          }
-        } else {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: 'bot',
-              content: result.text || 'Perfecto. ¿En qué proyecto puedo ayudarte?',
-            },
-          ])
+          const data = result.data
+          responseContent += `<br/><br/>
+📐 <strong>Superficie estimada:</strong> ${data.metrosCuadrados || '?'} m²<br/>
+🏠 <strong>Estado detectado:</strong> ${data.estado || 'por evaluar'}<br/>
+⏱️ <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días<br/><br/>`
         }
+
+        responseContent += `<p class="text-gray-300 text-sm mt-4"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'bot',
+            content: responseContent,
+            showButtons: true,
+          },
+        ])
       } else {
         setMessages((prev) => [
           ...prev,
           {
             role: 'bot',
             content: 'Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo o escríbenos por WhatsApp.',
+            showButtons: true,
           },
         ])
       }
@@ -178,6 +110,7 @@ export default function IAPricingBot() {
         {
           role: 'bot',
           content: 'Error de conexión. Por favor, inténtalo de nuevo.',
+          showButtons: true,
         },
       ])
     }
@@ -251,28 +184,28 @@ export default function IAPricingBot() {
               )}
               <div dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br/>') }} />
               
-              {msg.budget && msg.isConfirming && (
+              {msg.showButtons && (
                 <div className="mt-4 space-y-3">
-                  <button
-                    onClick={handleConfirm}
-                    className="w-full py-3 bg-white text-black font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-                  >
-                    📋 Confirmar y Solicitar Visita
-                  </button>
                   <a
                     href="https://wa.me/34644702250?text=Hola!%20He%20analizado%20mi%20reforma%20en%20la%20web%20y%20quiero%20agendar%20una%20visita"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3 bg-green-500 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                    className="block w-full py-3 px-4 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-colors text-center text-sm"
                   >
                     📩 Agendar Visita Gratis (WhatsApp)
                   </a>
                   <a
-                    href="tel:+34684059232"
-                    className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                    href="tel:+34694059232"
+                    className="block w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors text-center text-sm"
                   >
                     📞 Llamar al Técnico
                   </a>
+                  <button
+                    onClick={handleConfirm}
+                    className="block w-full py-3 px-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors text-center text-sm"
+                  >
+                    📋 Solicitar Visita Técnica
+                  </button>
                 </div>
               )}
             </div>
