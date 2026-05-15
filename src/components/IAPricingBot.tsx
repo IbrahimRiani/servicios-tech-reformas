@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Upload, Send, Bot, User, Sparkles, Calculator, Calendar, Loader2 } from 'lucide-react'
+import { Upload, Send, Bot, User, Sparkles, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { usePricingModal } from '@/context/PricingModalContext'
@@ -133,6 +133,8 @@ export default function IAPricingBot() {
 <strong style="color:${COBALT_BLUE}">✓</strong> Sin compromiso
 </div>`
 
+            responseContent += `<p class="mt-4 text-gray-300 text-sm"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
+
             setMessages((prev) => [
               ...prev,
               {
@@ -147,7 +149,7 @@ export default function IAPricingBot() {
               ...prev,
               {
                 role: 'bot',
-                content: result.text || 'He procesado tu solicitud. ¿Podrías darme más detalles sobre el espacio (metros cuadrados, tipo de trabajo)?',
+                content: result.text || 'He procesado tu solicitud. ¿Podrías darme más detalles sobre el espacio?',
               },
             ])
           }
@@ -156,7 +158,7 @@ export default function IAPricingBot() {
             ...prev,
             {
               role: 'bot',
-              content: result.text || 'Perfecto. ¿En qué proyecto puedo ayudarte? Cuéntame más sobre lo que necesitas.',
+              content: result.text || 'Perfecto. ¿En qué proyecto puedo ayudarte?',
             },
           ])
         }
@@ -206,7 +208,7 @@ export default function IAPricingBot() {
         </div>
         <div>
           <p className="font-semibold text-white text-lg">Asesor IA</p>
-          <p className="text-xs text-blue-400">Gemini 2.5 • Te ayudo sin presión</p>
+          <p className="text-xs text-blue-400">Te ayudo sin presión</p>
         </div>
       </div>
 
@@ -250,13 +252,28 @@ export default function IAPricingBot() {
               <div dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br/>') }} />
               
               {msg.budget && msg.isConfirming && (
-                <button
-                  onClick={handleConfirm}
-                  className="mt-4 w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-                >
-                  <Calendar className="w-5 h-5" />
-                  Confirmar y Agendar
-                </button>
+                <div className="mt-4 space-y-3">
+                  <button
+                    onClick={handleConfirm}
+                    className="w-full py-3 bg-white text-black font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                  >
+                    📋 Confirmar y Solicitar Visita
+                  </button>
+                  <a
+                    href="https://wa.me/34644702250?text=Hola!%20He%20analizado%20mi%20reforma%20en%20la%20web%20y%20quiero%20agendar%20una%20visita"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-green-500 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                  >
+                    📩 Agendar Visita Gratis (WhatsApp)
+                  </a>
+                  <a
+                    href="tel:+34684059232"
+                    className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                  >
+                    📞 Llamar al Técnico
+                  </a>
+                </div>
               )}
             </div>
           </div>
