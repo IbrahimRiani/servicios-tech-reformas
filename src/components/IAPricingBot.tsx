@@ -75,15 +75,7 @@ export default function IAPricingBot() {
       setIsAnalyzing(false)
 
       if (result.success) {
-        let responseContent = result.text || ''
-
-        if (result.data) {
-          const data = result.data
-          responseContent += `<br/><br/>
-          <strong>Superficie estimada:</strong> ${data.metrosCuadrados || '?'} m²<br/>
-          <strong>Estado detectado:</strong> ${data.estado || 'por evaluar'}<br/>
-          <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días`
-        }
+        const responseContent = result.text || ''
 
         setMessages((prev) => [
           ...prev,
