@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #faf8f5;
-  --foreground: #1a1a1a;
-  --accent: #FF6600;
-  --accent-light: #ff8533;
-  --accent-dim: rgba(255, 102, 0, 0.1);
-  --accent-glow: rgba(255, 102, 0, 0.3);
-  --white: #ffffff;
-  --border: #e5e0d8;
+  --background: #FFFFFF;
+  --background-alt: #F5F5F5;
+  --foreground: #111111;
+  --text-secondary: #333333;
+  --accent: #E65100;
+  --accent-light: #FF6600;
+  --whatsapp: #25D366;
+  --whatsapp-dark: #128C7E;
+  --navy: #1a2942;
+  --border: #d4d4d4;
+  --border-light: #e5e5e5;
 }
 
 * {
@@ -39,60 +42,115 @@ body {
   color: white;
 }
 
-.glass {
-  background: var(--white);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
+.btn-industrial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  cursor: pointer;
 }
 
-.glow-hover {
-  transition: all 0.3s ease;
+.btn-industrial:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-light);
 }
 
-.glow-hover:hover {
-  box-shadow: 0 8px 30px var(--accent-glow);
-  border-color: var(--accent);
+.btn-industrial-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--navy);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: 2px solid var(--navy);
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  cursor: pointer;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #ff8533 0%, #FF6600 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.btn-industrial-navy:hover {
+  background: #0f1a2e;
+  border-color: #0f1a2e;
 }
 
-.neon-border {
-  position: relative;
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--whatsapp);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: 2px solid var(--whatsapp);
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  cursor: pointer;
 }
 
-.neon-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(45deg, var(--accent), transparent, var(--accent));
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.btn-whatsapp:hover {
+  background: var(--whatsapp-dark);
+  border-color: var(--whatsapp-dark);
 }
 
-.neon-border:hover::before {
-  opacity: 1;
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: var(--foreground);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: 2px solid var(--foreground);
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  cursor: pointer;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.btn-outline:hover {
+  background: var(--foreground);
+  color: white;
 }
 
-.float-animation {
-  animation: float 3s ease-in-out infinite;
+.section-industrial {
+  padding: 4rem 0;
+  background: var(--background);
+}
+
+.section-industrial-alt {
+  padding: 4rem 0;
+  background: var(--background-alt);
+}
+
+.heading-industrial {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
 }
 
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 @media (max-width: 1024px) {
@@ -107,18 +165,19 @@ body {
   }
 }
 
-.scroll-indicator {
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-10px); }
-  60% { transform: translateY(-5px); }
-}
-
 .chat-scroll {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+.cement-texture {
+  background-color: #e8e6e3;
+  background-image: 
+    linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0,0,0,0.02) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.02) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.02) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }

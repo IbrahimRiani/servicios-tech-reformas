@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Send, Phone, Mail, MapPin, CheckCircle, Loader2 } from 'lucide-react'
+import { Send, Phone, Mail, MapPin, CheckCircle, Loader2, Hammer } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 
 interface FormData {
@@ -31,7 +31,7 @@ function ContactoContent() {
     if (serviceParam === 'budget-confirmed') {
       setFormData(prev => ({
         ...prev,
-        message: 'He calculado un presupuesto con el asistente IA y quiero confirmar la cita.',
+        message: 'He calculado un presupuesto con el asistente y quiero confirmar la cita.',
         service: 'reforma',
       }))
     }
@@ -40,9 +40,7 @@ function ContactoContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
     await new Promise(resolve => setTimeout(resolve, 1500))
-    
     setIsSubmitting(false)
     setSubmitted(true)
   }
@@ -53,27 +51,27 @@ function ContactoContent() {
 
   if (submitted) {
     return (
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-white">
         <Navbar />
         <section className="pt-32 pb-16 px-6">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-8">
-              <CheckCircle className="w-10 h-10 text-blue-400" />
+            <div className="w-20 h-20 bg-[#E65100] flex items-center justify-center mx-auto mb-8 rounded-sm">
+              <CheckCircle className="w-10 h-10 text-white" strokeWidth={3} />
             </div>
-            <h1 className="text-4xl font-bold mb-4 text-white">¡Solicitud enviada!</h1>
-            <p className="text-gray-400 text-lg mb-8">
-              Gracias por confiar en ReformasPro. Un técnico te contactará en menos de 24 horas para confirmar tu cita.
+            <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#111111] uppercase">¡Solicitud enviada!</h1>
+            <p className="text-[#333333] text-lg mb-8">
+              Gracias por confiar en ReformasPro. Un técnico te contactará en menos de 24 horas.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link 
                 href="/"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-full hover:scale-110 transition-transform"
+                className="px-8 py-4 bg-[#E65100] border-2 border-[#E65100] text-white font-bold uppercase text-sm tracking-wide hover:bg-[#FF6600] hover:border-[#FF6600] transition-colors"
               >
                 Volver al inicio
               </Link>
               <button 
                 onClick={() => setSubmitted(false)}
-                className="px-8 py-4 glass text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
+                className="px-8 py-4 bg-white border-2 border-[#111111] text-[#111111] font-bold uppercase text-sm tracking-wide hover:bg-[#111111] hover:text-white transition-colors"
               >
                 Nueva solicitud
               </button>
@@ -85,90 +83,91 @@ function ContactoContent() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-white">
       <Navbar />
       
-      <section className="pt-32 pb-16 px-6">
+      <section className="pt-32 pb-16 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4">
-              <span className="text-gradient">Contacto</span>
+          <div className="mb-12 border-b-2 border-[#111111] pb-6">
+            <div className="text-xs font-bold uppercase text-[#E65100] mb-2 tracking-widest">Hablemos</div>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] uppercase">
+              Contacto
             </h1>
-            <p className="text-gray-400 text-xl max-w-xl mx-auto">
-              ¿Tienes preguntas? Nuestro equipo te ayuda. Responemos en menos de 24 horas.
+            <p className="text-[#333333] mt-3 max-w-2xl">
+              ¿Tienes preguntas? Nuestro equipo te ayuda. Respondemos en menos de 24 horas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="glass rounded-3xl p-8 md:p-12">
-              <h2 className="text-2xl font-bold mb-8 text-white">Envíanos un mensaje</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-white border-2 border-[#111111] p-6 md:p-8">
+              <h2 className="text-xl font-extrabold mb-6 text-[#111111] uppercase">Envíanos un mensaje</h2>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-gray-400 text-sm mb-2">Nombre completo</label>
+                    <label className="block text-[#111111] text-xs font-bold uppercase tracking-wider mb-2">Nombre completo</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full bg-white border-2 border-[#d4d4d4] px-4 py-3 text-[#111111] focus:outline-none focus:border-[#E65100] transition-colors"
                       placeholder="Juan García"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-400 text-sm mb-2">Teléfono</label>
+                    <label className="block text-[#111111] text-xs font-bold uppercase tracking-wider mb-2">Teléfono</label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full bg-white border-2 border-[#d4d4d4] px-4 py-3 text-[#111111] focus:outline-none focus:border-[#E65100] transition-colors"
                       placeholder="+34 600 000 000"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-400 text-sm mb-2">Email</label>
+                  <label className="block text-[#111111] text-xs font-bold uppercase tracking-wider mb-2">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full bg-white border-2 border-[#d4d4d4] px-4 py-3 text-[#111111] focus:outline-none focus:border-[#E65100] transition-colors"
                     placeholder="juan@ejemplo.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-400 text-sm mb-2">Tipo de servicio</label>
+                  <label className="block text-[#111111] text-xs font-bold uppercase tracking-wider mb-2">Tipo de servicio</label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-black/50 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full bg-white border-2 border-[#d4d4d4] px-4 py-3 text-[#111111] focus:outline-none focus:border-[#E65100] transition-colors"
                   >
-                    <option value="" className="text-gray-400">Selecciona un servicio</option>
-                    <option value="reformas" className="text-white">Reformas Integrales</option>
-                    <option value="pintura" className="text-white">Pintura Técnica</option>
-                    <option value="limpieza" className="text-white">Limpieza Profesional</option>
-                    <option value="otro" className="text-white">Otro</option>
+                    <option value="">Selecciona un servicio</option>
+                    <option value="reformas">Reformas Integrales</option>
+                    <option value="pintura">Pintura Técnica</option>
+                    <option value="limpieza">Limpieza Profesional</option>
+                    <option value="otro">Otro</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-gray-400 text-sm mb-2">Mensaje</label>
+                  <label className="block text-[#111111] text-xs font-bold uppercase tracking-wider mb-2">Mensaje</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                    className="w-full bg-white border-2 border-[#d4d4d4] px-4 py-3 text-[#111111] focus:outline-none focus:border-[#E65100] transition-colors resize-none"
                     placeholder="Describe tu proyecto o pregunta..."
                   />
                 </div>
@@ -176,7 +175,7 @@ function ContactoContent() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-[#E65100] border-2 border-[#E65100] text-white font-bold uppercase text-sm tracking-wide hover:bg-[#FF6600] hover:border-[#FF6600] transition-colors flex items-center justify-center gap-3 disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <>
@@ -185,7 +184,7 @@ function ContactoContent() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5" />
+                      <Send className="w-5 h-5" strokeWidth={3} />
                       Enviar mensaje
                     </>
                   )}
@@ -193,66 +192,66 @@ function ContactoContent() {
               </form>
             </div>
 
-            <div className="space-y-8">
-              <div className="glass rounded-3xl p-8 md:p-12">
-                <h2 className="text-2xl font-bold mb-8 text-white">Información de contacto</h2>
+            <div className="space-y-4">
+              <div className="bg-white border-2 border-[#111111] p-6 md:p-8">
+                <h2 className="text-xl font-extrabold mb-6 text-[#111111] uppercase">Información</h2>
                 
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-blue-400" />
+                <div className="space-y-4">
+                  <a href="tel:+34694059232" className="flex items-center gap-4 p-3 border-2 border-[#d4d4d4] hover:border-[#E65100] transition-colors">
+                    <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm flex-shrink-0">
+                      <Phone className="w-5 h-5 text-white" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">Teléfono</p>
-                      <p className="text-white font-semibold">+34 684 059 232</p>
+                      <p className="text-[10px] font-bold uppercase text-[#333333] tracking-widest">Teléfono</p>
+                      <p className="text-[#111111] font-extrabold">+34 694 059 232</p>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-blue-400" />
+                  <a href="mailto:info@reformaspro.live" className="flex items-center gap-4 p-3 border-2 border-[#d4d4d4] hover:border-[#E65100] transition-colors">
+                    <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm flex-shrink-0">
+                      <Mail className="w-5 h-5 text-white" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">Email</p>
-                      <p className="text-white font-semibold">info@reformaspro.live</p>
+                      <p className="text-[10px] font-bold uppercase text-[#333333] tracking-widest">Email</p>
+                      <p className="text-[#111111] font-extrabold">info@reformaspro.live</p>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-blue-400" />
+                  <div className="flex items-center gap-4 p-3 border-2 border-[#d4d4d4]">
+                    <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-white" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">Dirección</p>
-                      <p className="text-white font-semibold">Madrid, España</p>
+                      <p className="text-[10px] font-bold uppercase text-[#333333] tracking-widest">Dirección</p>
+                      <p className="text-[#111111] font-extrabold">Madrid, España</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-white/10">
-                  <p className="text-gray-400 text-sm mb-4">Horario de atención</p>
-                  <p className="text-white">Lun-Vie: 9:00 - 20:00</p>
-                  <p className="text-white">Sáb: 10:00 - 14:00</p>
+                <div className="mt-6 pt-6 border-t-2 border-[#d4d4d4]">
+                  <p className="text-[10px] font-bold uppercase text-[#E65100] tracking-widest mb-3">Horario</p>
+                  <p className="text-[#111111] font-bold text-sm">Lun-Vie: 9:00 - 20:00</p>
+                  <p className="text-[#111111] font-bold text-sm">Sáb: 10:00 - 14:00</p>
                 </div>
               </div>
 
-              <div className="glass rounded-3xl p-8 md:p-12">
-                <h2 className="text-2xl font-bold mb-4 text-white">¿Por qué elegirnos?</h2>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+              <div className="bg-[#111111] border-2 border-[#111111] p-6 md:p-8">
+                <h2 className="text-xl font-extrabold mb-4 text-white uppercase">¿Por qué nosotros?</h2>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-white text-sm font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#E65100] flex-shrink-0" strokeWidth={3} />
                     Respuesta en menos de 24h
                   </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-3 text-white text-sm font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#E65100] flex-shrink-0" strokeWidth={3} />
                     Presupuesto sin compromiso
                   </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-3 text-white text-sm font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#E65100] flex-shrink-0" strokeWidth={3} />
                     5 años de garantía
                   </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-3 text-white text-sm font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#E65100] flex-shrink-0" strokeWidth={3} />
                     Materiales de primera calidad
                   </li>
                 </ul>
@@ -262,41 +261,43 @@ function ContactoContent() {
         </div>
       </section>
 
-      <footer className="py-16 px-6 border-t border-white/10">
+      <footer className="py-12 px-6 bg-[#F5F5F5] border-t-2 border-[#111111]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">
-                <span className="text-gradient">Reformas</span>
-                <span className="text-white">Pro</span>
-              </h3>
-              <p className="text-gray-400 text-sm">El futuro de las reformas llegó.</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm">
+                  <Hammer className="w-6 h-6 text-white" strokeWidth={2.5} />
+                </div>
+                <span className="text-lg font-extrabold text-[#111111] uppercase">Reformas Pro</span>
+              </div>
+              <p className="text-sm text-[#333333]">Empresa especializada en reformas, pintura y limpieza profesional.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">Servicios</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li><Link href="/servicios/reformas-integrales" className="hover:text-blue-400">Reformas</Link></li>
-                <li><Link href="/servicios/pintura-tecnica" className="hover:text-blue-400">Pintura</Link></li>
-                <li><Link href="/servicios/limpieza-industrial" className="hover:text-blue-400">Limpieza</Link></li>
+              <h4 className="text-sm font-extrabold uppercase text-[#111111] mb-4 tracking-wider">Servicios</h4>
+              <ul className="space-y-2 text-sm text-[#333333]">
+                <li><Link href="/servicios/reformas-integrales" className="hover:text-[#E65100] font-medium">Reformas</Link></li>
+                <li><Link href="/servicios/pintura-tecnica" className="hover:text-[#E65100] font-medium">Pintura</Link></li>
+                <li><Link href="/servicios/limpieza-industrial" className="hover:text-[#E65100] font-medium">Limpieza</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">Empresa</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li><Link href="/proceso" className="hover:text-blue-400">Proceso</Link></li>
-                <li><Link href="/servicios" className="hover:text-blue-400">Servicios</Link></li>
+              <h4 className="text-sm font-extrabold uppercase text-[#111111] mb-4 tracking-wider">Empresa</h4>
+              <ul className="space-y-2 text-sm text-[#333333]">
+                <li><Link href="/proceso" className="hover:text-[#E65100] font-medium">Proceso</Link></li>
+                <li><Link href="/servicios" className="hover:text-[#E65100] font-medium">Servicios</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">Legal</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li><Link href="/aviso-legal" className="hover:text-blue-400">Aviso Legal</Link></li>
-                <li><Link href="/privacidad" className="hover:text-blue-400">Privacidad</Link></li>
+              <h4 className="text-sm font-extrabold uppercase text-[#111111] mb-4 tracking-wider">Legal</h4>
+              <ul className="space-y-2 text-sm text-[#333333]">
+                <li><Link href="/aviso-legal" className="hover:text-[#E65100] font-medium">Aviso Legal</Link></li>
+                <li><Link href="/privacidad" className="hover:text-[#E65100] font-medium">Privacidad</Link></li>
               </ul>
             </div>
           </div>
-          <div className="text-center pt-8 border-t border-white/5">
-            <p className="text-gray-500 text-sm">© 2024 ReformasPro. Todos los derechos reservados.</p>
+          <div className="text-center pt-6 border-t-2 border-[#d4d4d4]">
+            <p className="text-xs font-bold uppercase text-[#333333] tracking-wider">© 2024 ReformasPro · Todos los derechos reservados</p>
           </div>
         </div>
       </footer>
@@ -306,7 +307,7 @@ function ContactoContent() {
 
 export default function ContactoPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <ContactoContent />
     </Suspense>
   )

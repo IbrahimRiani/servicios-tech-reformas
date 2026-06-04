@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Upload, Send, Bot, User, Sparkles, Loader2 } from 'lucide-react'
+import { Upload, Send, Bot, User, Loader2, MessageSquare } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { usePricingModal } from '@/context/PricingModalContext'
@@ -17,12 +17,11 @@ export default function IAPricingBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      content: '¡Hola! 👋 Soy tu asesor técnico en reformas. ¿En qué puedo ayudarte hoy?',
+      content: '¡Hola! Soy tu asesor técnico. Cuéntame qué reforma necesitas.',
     },
   ])
   const [input, setInput] = useState('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const { closeModal } = usePricingModal()
@@ -33,7 +32,7 @@ export default function IAPricingBot() {
     }
   }, [messages, isAnalyzing])
 
-  const handleImageUpload = async () => {
+  const handleImageUpload = () => {
     const input = document.createElement('input')
     input.type = 'file'
     input.accept = 'image/*'
@@ -81,12 +80,12 @@ export default function IAPricingBot() {
         if (result.data) {
           const data = result.data
           responseContent += `<br/><br/>
-📐 <strong>Superficie estimada:</strong> ${data.metrosCuadrados || '?'} m²<br/>
-🏠 <strong>Estado detectado:</strong> ${data.estado || 'por evaluar'}<br/>
-⏱️ <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días<br/><br/>`
+          <strong>Superficie estimada:</strong> ${data.metrosCuadrados || '?'} m²<br/>
+          <strong>Estado detectado:</strong> ${data.estado || 'por evaluar'}<br/>
+          <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días<br/><br/>`
         }
 
-        responseContent += `<p class="text-gray-600 text-sm mt-3"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
+        responseContent += `<p style="margin-top:12px; padding-top:12px; border-top:1px solid #d4d4d4; font-size:13px;"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
 
         setMessages((prev) => [
           ...prev,
@@ -121,11 +120,9 @@ export default function IAPricingBot() {
 
   const handleSend = () => {
     if (!input.trim()) return
-
     const userMessage = input.trim()
     setMessages((prev) => [...prev, { role: 'user', content: userMessage }])
     setInput('')
-
     sendToAPI(userMessage)
   }
 
@@ -138,13 +135,13 @@ export default function IAPricingBot() {
 
   return (
     <div className="flex flex-col h-full w-full bg-white">
-      <div className="px-4 py-3 border-b border-gray-200 flex items-center gap-3 bg-gradient-to-r from-orange-50 to-white flex-shrink-0">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-white" />
+      <div className="px-4 py-3 border-b-2 border-[#E65100] flex items-center gap-3 bg-[#F5F5F5] flex-shrink-0">
+        <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm">
+          <MessageSquare className="w-5 h-5 text-white" strokeWidth={2.5} />
         </div>
         <div>
-          <p className="font-semibold text-gray-900">Asesor IA</p>
-          <p className="text-xs text-orange-600">Te ayudo sin compromiso</p>
+          <p className="font-extrabold text-[#111111] uppercase text-sm">Asesor Técnico</p>
+          <p className="text-xs text-[#E65100] font-bold uppercase tracking-wide">Presupuesto sin compromiso</p>
         </div>
       </div>
 
@@ -158,33 +155,33 @@ export default function IAPricingBot() {
             className={`flex gap-2 w-full ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
           >
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+              className={`w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-sm ${
                 msg.role === 'bot' 
-                  ? 'bg-gradient-to-r from-orange-500 to-orange-600' 
-                  : 'bg-gray-200'
+                  ? 'bg-[#E65100]' 
+                  : 'bg-[#111111]'
               }`}
             >
               {msg.role === 'bot' ? (
-                <Bot className="w-4 h-4 text-white" />
+                <Bot className="w-4 h-4 text-white" strokeWidth={2.5} />
               ) : (
-                <User className="w-4 h-4 text-gray-700" />
+                <User className="w-4 h-4 text-white" strokeWidth={2.5} />
               )}
             </div>
             <div
-              className={`min-w-0 max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed ${
+              className={`min-w-0 max-w-[80%] p-3 text-sm leading-relaxed ${
                 msg.role === 'bot'
-                  ? 'bg-gray-100 text-gray-800'
-                  : 'bg-orange-500 text-white'
+                  ? 'bg-[#F5F5F5] text-[#111111] border border-[#d4d4d4]'
+                  : 'bg-[#E65100] text-white'
               }`}
             >
               {msg.image && (
-                <div className="mb-2 rounded-lg overflow-hidden">
+                <div className="mb-2 border border-[#d4d4d4]">
                   <Image
                     src={msg.image}
                     alt="Imagen subida"
                     width={250}
                     height={180}
-                    className="w-full h-32 object-cover rounded-lg"
+                    className="w-full h-32 object-cover"
                   />
                 </div>
               )}
@@ -196,21 +193,21 @@ export default function IAPricingBot() {
                     href="https://wa.me/34644702250?text=Hola!%20He%20analizado%20mi%20reforma%20en%20la%20web%20y%20quiero%20agendar%20una%20visita"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full py-3 px-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors text-center text-sm"
+                    className="block w-full py-3 px-3 bg-[#25D366] border-2 border-[#128C7E] text-white font-bold uppercase text-xs tracking-wide hover:bg-[#128C7E] transition-colors text-center"
                   >
-                    📩 Agendar Visita (WhatsApp)
+                    Agendar Visita (WhatsApp)
                   </a>
                   <a
                     href="tel:+34694059232"
-                    className="block w-full py-3 px-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center text-sm"
+                    className="block w-full py-3 px-3 bg-[#1a2942] border-2 border-[#1a2942] text-white font-bold uppercase text-xs tracking-wide hover:bg-[#0f1a2e] transition-colors text-center"
                   >
-                    📞 Llamar al Técnico
+                    Llamar al Técnico
                   </a>
                   <button
                     onClick={handleConfirm}
-                    className="block w-full py-3 px-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors text-center text-sm"
+                    className="block w-full py-3 px-3 bg-white border-2 border-[#111111] text-[#111111] font-bold uppercase text-xs tracking-wide hover:bg-[#111111] hover:text-white transition-colors text-center"
                   >
-                    📋 Solicitar Visita Técnica
+                    Solicitar Visita Técnica
                   </button>
                 </div>
               )}
@@ -219,28 +216,27 @@ export default function IAPricingBot() {
         ))}
         {isAnalyzing && (
           <div className="flex gap-2 w-full">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center flex-shrink-0">
-              <Bot className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 bg-[#E65100] flex items-center justify-center flex-shrink-0 rounded-sm">
+              <Bot className="w-4 h-4 text-white" strokeWidth={2.5} />
             </div>
-            <div className="bg-gray-100 p-3 rounded-2xl">
+            <div className="bg-[#F5F5F5] border border-[#d4d4d4] p-3">
               <div className="flex items-center gap-2">
-                <Loader2 className="w-4 h-4 text-orange-600 animate-spin" />
-                <span className="text-orange-600 text-sm">Analizando...</span>
+                <Loader2 className="w-4 h-4 text-[#E65100] animate-spin" />
+                <span className="text-[#111111] text-xs font-bold uppercase tracking-wide">Analizando proyecto...</span>
               </div>
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
-      <div className="p-3 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+      <div className="p-3 border-t-2 border-[#111111] bg-white flex-shrink-0">
         <div className="flex gap-2">
           <button
             onClick={handleImageUpload}
-            className="p-3 rounded-full bg-white hover:bg-gray-100 transition-colors border border-gray-200"
+            className="p-3 bg-[#F5F5F5] hover:bg-[#E65100] hover:text-white transition-colors border-2 border-[#d4d4d4] hover:border-[#E65100]"
             title="Subir imagen"
           >
-            <Upload className="w-5 h-5 text-gray-600" />
+            <Upload className="w-5 h-5 text-[#111111] hover:text-white" strokeWidth={2.5} />
           </button>
           <input
             type="text"
@@ -248,14 +244,14 @@ export default function IAPricingBot() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Describe tu proyecto..."
-            className="flex-1 min-w-0 bg-white rounded-full px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 border border-gray-200"
+            className="flex-1 min-w-0 bg-white px-4 py-3 text-sm text-[#111111] placeholder-[#999] focus:outline-none focus:ring-0 border-2 border-[#d4d4d4] focus:border-[#E65100]"
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isAnalyzing}
-            className="p-3 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-3 bg-[#E65100] text-white hover:bg-[#FF6600] transition-colors disabled:opacity-50 disabled:cursor-not-allowed border-2 border-[#E65100]"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5" strokeWidth={2.5} />
           </button>
         </div>
       </div>

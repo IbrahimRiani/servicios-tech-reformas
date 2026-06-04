@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MapPin } from 'lucide-react'
 
 const cases = [
   {
@@ -33,48 +33,48 @@ const cases = [
 
 export default function SuccessCases() {
   return (
-    <section className="py-32 px-6 bg-background">
+    <section className="py-16 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Casos de <span className="text-gradient">Éxito</span>
+        <div className="mb-12 border-b-2 border-[#111111] pb-6">
+          <div className="text-xs font-bold uppercase text-[#E65100] mb-2 tracking-widest">Portfolio</div>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[#111111] uppercase">
+            Trabajos Realizados
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Trabajos terminados por nuestro equipo de profesionales. Cada proyecto es único, cada resultado excepcional.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {cases.map((item, index) => (
             <div 
               key={index}
-              className="glass rounded-3xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
+              className="bg-white border-2 border-[#d4d4d4] hover:border-[#E65100] transition-colors overflow-hidden group"
             >
-              <div className="relative h-56 w-full">
+              <div className="relative h-48 w-full border-b-2 border-[#d4d4d4]">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] to-transparent" />
               </div>
               
-              <div className="p-6">
-                <p className="text-blue-400 text-sm font-medium mb-2">{item.location}</p>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
+              <div className="p-4">
+                <div className="flex items-center gap-1 mb-2 text-[#E65100]">
+                  <MapPin className="w-3 h-3" strokeWidth={3} />
+                  <p className="text-[10px] font-bold uppercase tracking-widest">{item.location}</p>
+                </div>
+                <h3 className="text-base font-extrabold text-[#111111] mb-2 uppercase group-hover:text-[#E65100] transition-colors">{item.title}</h3>
+                <p className="text-xs text-[#333333] leading-relaxed">{item.description}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="mt-12 text-center">
           <Link 
             href="/contacto"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold rounded-full hover:scale-105 transition-transform"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#E65100] border-2 border-[#E65100] text-white font-bold uppercase text-sm tracking-wide hover:bg-[#FF6600] hover:border-[#FF6600] transition-colors"
           >
-            Solicitar presupuesto <ArrowRight className="w-5 h-5" />
+            Solicitar Presupuesto <ArrowRight className="w-5 h-5" strokeWidth={3} />
           </Link>
         </div>
       </div>

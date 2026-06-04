@@ -8,23 +8,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#faf8f5',
-        accent: '#FF6600',
-        'accent-light': '#ff8533',
-        'accent-dim': 'rgba(255, 102, 0, 0.1)',
-        'accent-glow': 'rgba(255, 102, 0, 0.3)',
+        background: '#FFFFFF',
+        'background-alt': '#F5F5F5',
+        'industrial-orange': '#E65100',
+        'industrial-orange-light': '#FF6600',
+        accent: '#E65100',
+        'text-primary': '#111111',
+        'text-secondary': '#333333',
+        'border-industrial': '#d4d4d4',
+        'navy-dark': '#1a2942',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
-      animation: {
-        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+      borderRadius: {
+        'none': '0',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
       },
-      keyframes: {
-        'glow-pulse': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(255, 102, 0, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(255, 102, 0, 0.6)' },
-        },
+      boxShadow: {
+        'industrial': '0 2px 4px rgba(0, 0, 0, 0.08)',
+        'industrial-hover': '0 4px 8px rgba(0, 0, 0, 0.12)',
       },
     },
   },

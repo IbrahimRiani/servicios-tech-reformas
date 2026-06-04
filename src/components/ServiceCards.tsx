@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { Hammer, Palette, Droplets, CheckCircle, Clock, Shield } from 'lucide-react'
+import { Hammer, Palette, Brush, CheckCircle, Clock, Shield } from 'lucide-react'
 import Link from 'next/link'
 
 interface ServiceCard {
@@ -18,7 +17,7 @@ const services: ServiceCard[] = [
   {
     title: 'Reformas Integrales',
     description: 'Transformación completa de tu espacio con materiales premium y ejecución impecable.',
-    icon: <Hammer className="w-8 h-8 text-blue-400" />,
+    icon: <Hammer className="w-7 h-7 text-white" strokeWidth={2.5} />,
     features: ['Diseño 3D incluido', 'Materiales de primera', 'Equipo especializado', 'Garantía 5 años'],
     price: 'Desde 8.500€',
     slug: 'reformas-integrales',
@@ -27,7 +26,7 @@ const services: ServiceCard[] = [
   {
     title: 'Pintura Técnica',
     description: 'Acabados profesionales con pinturas ecológicas y técnicas avanzadas de aplicación.',
-    icon: <Palette className="w-8 h-8 text-blue-400" />,
+    icon: <Palette className="w-7 h-7 text-white" strokeWidth={2.5} />,
     features: ['Pinturas ecológicas', 'Acabados mate/satinado', 'Técnica airless', 'Sin olores'],
     price: 'Desde 450€',
     slug: 'pintura-tecnica',
@@ -36,7 +35,7 @@ const services: ServiceCard[] = [
   {
     title: 'Limpieza Profesional',
     description: 'Servicios de limpieza profesional para comunidades, oficinas y espacios comerciales.',
-    icon: <Droplets className="w-8 h-8 text-blue-400" />,
+    icon: <Brush className="w-7 h-7 text-white" strokeWidth={2.5} />,
     features: ['Equipos industriales', 'Productos biodegradables', 'Personal cualificado', 'Disponibilidad 24h'],
     price: 'Desde 90€/mes',
     slug: 'limpieza-industrial',
@@ -51,66 +50,62 @@ const stats = [
 ]
 
 export default function ServiceCards() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-
   return (
-    <section className="py-24 px-6 bg-background">
+    <section className="py-16 md:py-20 px-4 md:px-6 bg-[#F5F5F5]">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-           Nuestros <span className="text-gradient">Servicios</span>
+        <div className="mb-12 border-b-2 border-[#111111] pb-6">
+          <div className="text-xs font-bold uppercase text-[#E65100] mb-2 tracking-widest">Catálogo</div>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[#111111] uppercase">
+            Nuestros Servicios
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Soluciones integrales para cada necesidad. Calidad premium con precios transparentes.
-          </p>
         </div>
 
         <div className="bento-grid">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <Link
               key={service.slug}
               href={`/servicios/${service.slug}`}
-              className={`relative p-8 rounded-3xl glass transition-all duration-500 cursor-pointer group hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              className="group relative bg-white border-2 border-[#d4d4d4] hover:border-[#E65100] transition-colors p-6"
             >
-              {hoveredIndex === index && (
-                <div className="absolute inset-0 rounded-3xl bg-blue-500/5" />
-              )}
-
-              <div className="relative z-10">
-                <div className="mb-6">{service.icon}</div>
-                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-gradient transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 mb-6">{service.description}</p>
-
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2 text-gray-300 text-sm">
-                      <CheckCircle className="w-4 h-4 text-blue-400" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex items-end justify-between pt-4 border-t border-white/10">
-                  <div>
-                    <p className="text-blue-400 font-bold text-lg">{service.price}</p>
-                    <p className="text-gray-500 text-sm">{service.stat}</p>
-                  </div>
+              <div className="flex items-start justify-between mb-4 pb-4 border-b-2 border-[#F5F5F5]">
+                <div className="w-12 h-12 bg-[#E65100] flex items-center justify-center rounded-sm">
+                  {service.icon}
                 </div>
+                <div className="text-right">
+                  <p className="text-[10px] font-bold uppercase text-[#333333] tracking-widest">{service.stat}</p>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-extrabold mb-3 text-[#111111] uppercase group-hover:text-[#E65100] transition-colors">
+                {service.title}
+              </h3>
+              <p className="text-sm text-[#333333] mb-5 leading-relaxed">{service.description}</p>
+
+              <ul className="space-y-2 mb-5">
+                {service.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-[#111111]">
+                    <CheckCircle className="w-4 h-4 text-[#E65100] flex-shrink-0" strokeWidth={3} />
+                    <span className="font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-4 border-t-2 border-[#F5F5F5] flex items-center justify-between">
+                <p className="text-base font-extrabold text-[#E65100] uppercase">{service.price}</p>
+                <span className="text-xs font-bold uppercase text-[#111111] group-hover:text-[#E65100] transition-colors">
+                  Ver más →
+                </span>
               </div>
             </Link>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8 border-2 border-[#111111]">
           {stats.map((stat, index) => (
-            <div key={index} className="glass rounded-2xl p-6 text-center">
-              <div className="flex justify-center mb-3 text-blue-400">{stat.icon}</div>
-              <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
-              <p className="text-gray-400 text-sm">{stat.label}</p>
+            <div key={index} className={`bg-white p-6 text-center ${index !== 2 ? 'border-b-2 md:border-b-0 md:border-r-2 border-[#111111]' : ''}`}>
+              <div className="flex justify-center mb-3 text-[#E65100]">{stat.icon}</div>
+              <p className="text-3xl font-extrabold text-[#111111] mb-1 uppercase">{stat.value}</p>
+              <p className="text-xs font-bold uppercase text-[#333333] tracking-wider">{stat.label}</p>
             </div>
           ))}
         </div>
