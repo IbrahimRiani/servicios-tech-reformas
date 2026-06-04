@@ -5,12 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #030712;
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-dim: rgba(59, 130, 246, 0.1);
-  --accent-glow: rgba(59, 130, 246, 0.5);
-  --foreground: #ffffff;
+  --background: #faf8f5;
+  --foreground: #1a1a1a;
+  --accent: #FF6600;
+  --accent-light: #ff8533;
+  --accent-dim: rgba(255, 102, 0, 0.1);
+  --accent-glow: rgba(255, 102, 0, 0.3);
+  --white: #ffffff;
+  --border: #e5e0d8;
 }
 
 * {
@@ -29,17 +31,18 @@ body {
   color: var(--foreground);
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--background);
+  color: white;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--white);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
 }
 
 .glow-hover {
@@ -47,12 +50,12 @@ body {
 }
 
 .glow-hover:hover {
-  box-shadow: 0 0 30px var(--accent-glow);
+  box-shadow: 0 8px 30px var(--accent-glow);
   border-color: var(--accent);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #ff8533 0%, #FF6600 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -112,4 +115,10 @@ body {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
+}
+
+.chat-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }

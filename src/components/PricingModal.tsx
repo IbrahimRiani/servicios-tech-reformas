@@ -22,19 +22,19 @@ export default function PricingModal() {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-6">
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={closeModal}
       />
-      <div className="relative w-full max-w-2xl h-[80vh] bg-[#030712] rounded-3xl border border-white/10 shadow-2xl flex flex-col">
+      <div className="relative w-full max-w-2xl h-[90vh] md:h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         <button 
           onClick={closeModal}
-          className="absolute top-4 right-4 z-20 p-3 rounded-full bg-red-500/20 hover:bg-red-500/40 transition-colors border border-red-500/30"
+          className="absolute top-3 right-3 z-20 p-2 rounded-full bg-red-100 hover:bg-red-200 transition-colors border border-red-200"
         >
-          <X className="w-5 h-5 text-white" />
+          <X className="w-4 h-4 text-red-600" />
         </button>
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 min-h-0 overflow-hidden">
           <IAPricingBot />
         </div>
       </div>
