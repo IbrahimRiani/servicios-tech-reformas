@@ -97,8 +97,7 @@ export async function POST(req: NextRequest) {
       generationConfig: {
         temperature: 0.3,
         topP: 0.8,
-        maxOutputTokens: 400,
-        stopSequences: ['\n\n\n\n', 'Atentamente', 'Un saludo', 'Espero haberte ayudado'],
+        maxOutputTokens: 500,
       }
     })
 
@@ -155,26 +154,9 @@ Genera el diagnóstico y trabajo necesario en formato lista, termina con el JSON
       try {
         budgetData = JSON.parse(jsonMatch[0])
         textResponse = responseText.replace(jsonMatch[0], '').trim()
-        const jsonEndIndex = responseText.indexOf(jsonMatch[0]) + jsonMatch[0].length
-        if (jsonEndIndex < responseText.length) {
-          const tail = responseText.substring(jsonEndIndex).trim()
-          if (tail.length > 0) {
-            console.warn('IA emitió texto tras el JSON, descartado:', tail.substring(0, 80))
-          }
-        }
       } catch (e) {
-        console.warn('JSON malformado de Gemini:', e)
+        // JSON malformado, se ignora
       }
-    }
-
-    if (textResponse && !/[.!?]$/.test(textResponse.trim())) {
-      textResponse = textResponse.trim() + '.'
-    }
-
-    if (textResponse.length > 800) {
-      const cut = textResponse.substring(0, 800)
-      const lastPeriod = cut.lastIndexOf('.')
-      textResponse = lastPeriod > 400 ? cut.substring(0, lastPeriod + 1) : cut + '...'
     }
 
     return NextResponse.json({
