@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Providers from '@/components/Providers'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import LocationFooter from '@/components/LocationFooter'
 
 export const metadata: Metadata = {
   title: 'ReformasPro AI - Reformas, Pintura y Limpieza con Inteligencia Artificial',
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className="antialiased">
         <Providers>
           {children}
+          <LocationFooter />
           <WhatsAppButton />
         </Providers>
       </body>
