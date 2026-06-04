@@ -82,10 +82,8 @@ export default function IAPricingBot() {
           responseContent += `<br/><br/>
           <strong>Superficie estimada:</strong> ${data.metrosCuadrados || '?'} m²<br/>
           <strong>Estado detectado:</strong> ${data.estado || 'por evaluar'}<br/>
-          <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días<br/><br/>`
+          <strong>Plazo estimado de obra:</strong> ${data.plazoDias || '?'} días`
         }
-
-        responseContent += `<p style="margin-top:12px; padding-top:12px; border-top:1px solid #d4d4d4; font-size:13px;"><em>He analizado los materiales y el trabajo necesario, pero para darte un presupuesto real y cerrado, necesito que hables con nuestro equipo para fijar una visita técnica sin compromiso.</em></p>`
 
         setMessages((prev) => [
           ...prev,
