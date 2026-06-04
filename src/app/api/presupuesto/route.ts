@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
       generationConfig: {
         temperature: 0.3,
         topP: 0.8,
-        maxOutputTokens: 700,
+        maxOutputTokens: 400,
         stopSequences: ['\n\n\n\n', 'Atentamente', 'Un saludo', 'Espero haberte ayudado'],
       }
     })
