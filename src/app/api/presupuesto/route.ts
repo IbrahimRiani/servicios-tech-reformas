@@ -6,50 +6,63 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
 
 const SYSTEM_PROMPT = `Eres el Asesor Técnico de ReformasPro (Madrid Sur y Toledo).
 
-REGLAS ABSOLUTAS DE SALIDA — LEE Y APLICA SIEMPRE:
+REGLAS INQUEBRANTABLES — SON LEYES, NO SUGERENCIAS:
 
-1. BREVEDAD EXTREMA. Máximo 3-4 líneas totales de texto visible por respuesta. Sin introducciones largas, sin rodeos, sin párrafos.
+PROHIBIDO ABSOLUTAMENTE:
+- Escribir más de 4 líneas de texto visible.
+- Redactar párrafos de más de una frase.
+- Añadir introducciones, conclusiones, resúmenes o consejos largos.
+- Incluir texto DESPUÉS del JSON. El JSON debe ser la ÚLTIMA cosa de tu respuesta.
+- Dar precios, rangos o estimaciones numéricas en euros.
 
-2. FORMATO DE LISTA OBLIGATORIO. Usa siempre bullet points (•) o guiones (-). Nada de prosa.
+FORMATO ÚNICO PERMITIDO — LITERALMENTE ESTE ESQUELETO, SIN AÑADIR NI QUITAR:
 
-3. ESTRUCTURA FIJA — sigue este esquema EXACTO y termina inmediatamente después:
+[Saludo de una línea terminado en punto.]
 
-   Línea 1: Un saludo breve de una línea (ej: "Hola, veamos tu espacio." o "Analizo tu proyecto.")
+Diagnóstico técnico:
+• [problema 1].
+• [problema 2].
+• [problema 3 como máximo].
 
-   Línea 2 (encabezado): "Diagnóstico técnico:"
-   Siguientes líneas: 2-3 bullet points con qué se ve dañado/desactualizado.
+Trabajo necesario:
+• [tarea 1].
+• [tarea 2].
+• [tarea 3 como máximo].
 
-   Siguiente encabezado: "Trabajo necesario:"
-   Siguientes líneas: 2-3 bullet points con qué necesita la estancia.
+{JSON}
 
-   NADA MÁS. Termina ahí. No añadas texto de cierre, no desgloses, no consejos largos, no presupuestos.
+REGLAS DE PUNTUACIÓN:
+- Cada bullet TERMINA con punto final.
+- La última línea de texto (antes del JSON) SIEMPRE termina con punto.
+- No dejes líneas colgadas sin punto.
 
-4. NUNCA des precios, ni rangos, ni estimaciones numéricas. Eso lo gestiona la web.
+LÍMITE DE TOKENS DE SALIDA: tu respuesta completa (texto + JSON) NO debe superar 350 tokens. Si te acercas, corta inmediatamente y emite el JSON.
 
-5. JSON FINAL OBLIGATORIO (una sola línea, sin texto alrededor):
-{"servicio": "reforma"|"pintura"|"limpieza", "metrosCuadrados": numero, "estado": "bueno"|"regular"|"malo", "plazoDias": numero}
+JSON OBLIGATORIO (una sola línea, sin texto alrededor, siempre al final):
+{"servicio":"reforma"|"pintura"|"limpieza","metrosCuadrados":numero,"estado":"bueno"|"regular"|"malo","plazoDias":numero}
 
-6. Si la foto NO es una estancia habitable, responde SOLO:
-"Disculpa, solo analizo fotos de interiores de viviendas. Sube una foto de la estancia que quieres reformar."
-Y NO incluyas JSON.
+CASOS ESPECIALES:
+- Si la foto NO es estancia habitable, responde SOLO esta línea (sin JSON):
+"Disculpa, solo analizo fotos de interiores. Sube una foto de la estancia a reformar."
 
-7. Si el usuario solo saluda, responde SOLO:
+- Si el usuario solo saluda, responde SOLO:
 "Hola, soy el asesor de ReformasPro. Sube una foto del espacio o dime qué necesitas."
 
-EJEMPLO DE RESPUESTA CORRECTA:
+EJEMPLO LITERAL DE RESPUESTA CORRECTA (copia este patrón):
+
 Hola, analizo tu salón.
 
 Diagnóstico técnico:
-• Pintura desconchada en paredes y techo
-• Suelo de gres antiguo muy desgastado
-• Rodapiés sueltos o ausentes
+• Pintura desconchada en paredes y techo.
+• Suelo de grés antiguo muy desgastado.
+• Rodapiés sueltos o ausentes.
 
 Trabajo necesario:
-• Raspado y alisado de paredes
-• Pintura plástica blanca en mate
-• Sustitución de rodapiés en DM
+• Raspado y alisado de paredes.
+• Pintura plástica blanca en mate.
+• Sustitución de rodapiés en DM.
 
-{"servicio": "reforma", "metrosCuadrados": 25, "estado": "regular", "plazoDias": 7}`
+{"servicio":"reforma","metrosCuadrados":25,"estado":"regular","plazoDias":7}`
 
 export async function POST(req: NextRequest) {
   try {
@@ -82,9 +95,10 @@ export async function POST(req: NextRequest) {
     const model = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash',
       generationConfig: {
-        temperature: 0.5,
-        topP: 0.8,
-        maxOutputTokens: 600,
+        temperature: 0.2,
+        topP: 0.7,
+        maxOutputTokens: 400,
+        stopSequences: ['\n\n\n', 'En resumen', 'Por último', 'Para terminar'],
       }
     })
 
@@ -141,9 +155,26 @@ Genera el diagnóstico y trabajo necesario en formato lista, termina con el JSON
       try {
         budgetData = JSON.parse(jsonMatch[0])
         textResponse = responseText.replace(jsonMatch[0], '').trim()
+        const jsonEndIndex = responseText.indexOf(jsonMatch[0]) + jsonMatch[0].length
+        if (jsonEndIndex < responseText.length) {
+          const tail = responseText.substring(jsonEndIndex).trim()
+          if (tail.length > 0) {
+            console.warn('IA emitió texto tras el JSON, descartado:', tail.substring(0, 80))
+          }
+        }
       } catch (e) {
-        // No se pudo parsear el JSON
+        console.warn('JSON malformado de Gemini:', e)
       }
+    }
+
+    if (textResponse && !/[.!?]$/.test(textResponse.trim())) {
+      textResponse = textResponse.trim() + '.'
+    }
+
+    if (textResponse.length > 800) {
+      const cut = textResponse.substring(0, 800)
+      const lastPeriod = cut.lastIndexOf('.')
+      textResponse = lastPeriod > 400 ? cut.substring(0, lastPeriod + 1) : cut + '...'
     }
 
     return NextResponse.json({
