@@ -53,7 +53,7 @@ Retiraremos los rodapiés y sanearemos las zonas dañadas aplicando masilla de n
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIP(req)
-    const rateCheck = checkRateLimit(ip)
+    const rateCheck = await checkRateLimit(ip)
 
     console.log('=== RATE LIMIT CHECK ===')
     console.log('IP detectada:', ip)
