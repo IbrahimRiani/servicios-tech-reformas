@@ -1,6 +1,6 @@
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 
-const MAX_REQUESTS = 15
+const MAX_REQUESTS = 10
 const WINDOW_MS = 24 * 60 * 60 * 1000
 
 export function checkRateLimit(ip: string): { allowed: boolean; remaining: number; resetTime: number } {
@@ -25,5 +25,22 @@ export function getClientIP(request: Request): string {
   if (forwarded) {
     return forwarded.split(',')[0].trim()
   }
-  return request.headers.get('x-real-ip') || 'unknown'
+  const realIp = request.headers.get('x-real-ip')
+  if (realIp) {
+    return realIp.trim()
+  }
+  const cfIp = request.headers.get('cf-connecting-ip')
+  if (cfIp) {
+    return cfIp.trim()
+  }
+  return '127.0.0.1'
+}
+
+export function getRateLimitStatus() {
+  return {
+    totalIpsTracked: rateLimitMap.size,
+    maxRequests: MAX_REQUESTS,
+    windowHours: 24,
+    storage: 'in-memory (Map) — SE REINICIA en cold start de Vercel',
+  }
 }

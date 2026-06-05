@@ -55,12 +55,20 @@ export async function POST(req: NextRequest) {
     const ip = getClientIP(req)
     const rateCheck = checkRateLimit(ip)
 
+    console.log('=== RATE LIMIT CHECK ===')
+    console.log('IP detectada:', ip)
+    console.log('Remaining:', rateCheck.remaining)
+    console.log('Allowed:', rateCheck.allowed)
+    console.log('========================')
+
     if (!rateCheck.allowed) {
       return NextResponse.json(
         { 
-          error: 'Has alcanzado el límite de 15 consultas gratuitas por día. Para continuar con tu presupuesto, pulsa el botón de WhatsApp y habla directamente con nuestro equipo.',
+          error: 'Has superado el límite de 10 consultas gratuitas diarias. Para continuar con tu presupuesto, pulsa el botón de WhatsApp y habla directamente con nuestro equipo.',
           rateLimited: true,
-          resetTime: new Date(rateCheck.resetTime).toISOString()
+          remaining: 0,
+          resetTime: new Date(rateCheck.resetTime).toISOString(),
+          message: 'Has agotado tus 10 consultas gratuitas de hoy. Vuelve mañana o contacta con nosotros por WhatsApp para una valoración personalizada.'
         },
         { status: 429 }
       )

@@ -73,6 +73,18 @@ export default function IAPricingBot() {
 
       const result = await response.json()
       
+      if (response.status === 429 || result.rateLimited) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'bot',
+            content: result.error || result.message || 'Has agotado tus 10 consultas gratuitas de hoy. Vuelve mañana o contacta con nosotros por WhatsApp para una valoración personalizada.',
+            showButtons: true,
+          },
+        ])
+        return
+      }
+      
       if (result && result.success && typeof result.text === 'string') {
         const fullText = result.text
         setMessages((prev) => [
