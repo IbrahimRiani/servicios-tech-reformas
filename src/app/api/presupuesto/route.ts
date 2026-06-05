@@ -80,11 +80,6 @@ export async function POST(req: NextRequest) {
 
     const model = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash',
-      generationConfig: {
-        temperature: 0.4,
-        topP: 0.85,
-        maxOutputTokens: 1000,
-      }
     })
 
     let prompt = ''
@@ -98,7 +93,7 @@ export async function POST(req: NextRequest) {
 
 El usuario envió una imagen y escribió: "${message || 'Quiero reformar este espacio'}"
 
-Aplica la estructura fija de 4 bloques.`
+Aplica la estructura fija de 3 bloques.`
 
       media.push({
         inlineData: {
@@ -120,14 +115,24 @@ Responde SOLO con la frase corta de saludo indicada.`
 
 El usuario describe su proyecto: "${message}"
 
-Genera los 4 bloques en texto plano.`
+Genera los 3 bloques en texto plano.`
       }
     }
 
-    const result = await model.generateContent([
-      { text: prompt },
-      ...media
-    ])
+    const result = await model.generateContent({
+      contents: [{
+        role: 'user',
+        parts: [
+          { text: prompt },
+          ...media
+        ]
+      }],
+      generationConfig: {
+        maxOutputTokens: 1500,
+        temperature: 0.7,
+        topP: 0.9,
+      },
+    })
 
     const responseText = result.response.text()
     const finishReason = result.response.candidates?.[0]?.finishReason
