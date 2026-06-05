@@ -33,10 +33,10 @@ export default function IAPricingBot() {
   }, [messages, isAnalyzing])
 
   const handleImageUpload = () => {
-    const input = document.createElement('input')
-    input.type = 'file'
-    input.accept = 'image/*'
-    input.onchange = (e) => {
+    const inputEl = document.createElement('input')
+    inputEl.type = 'file'
+    inputEl.accept = 'image/*'
+    inputEl.onchange = (e) => {
       const file = (e.target as HTMLInputElement).files?.[0]
       if (file) {
         const reader = new FileReader()
@@ -55,7 +55,7 @@ export default function IAPricingBot() {
         reader.readAsDataURL(file)
       }
     }
-    input.click()
+    inputEl.click()
   }
 
   const sendToAPI = async (text: string, imageFile?: File | null) => {
@@ -72,16 +72,14 @@ export default function IAPricingBot() {
       })
 
       const result = await response.json()
-      setIsAnalyzing(false)
-
-      if (result.success) {
-        const responseContent = result.text || ''
-
+      
+      if (result && result.success && typeof result.text === 'string') {
+        const fullText = result.text
         setMessages((prev) => [
           ...prev,
           {
             role: 'bot',
-            content: responseContent,
+            content: fullText,
             showButtons: true,
           },
         ])
@@ -96,7 +94,6 @@ export default function IAPricingBot() {
         ])
       }
     } catch (error) {
-      setIsAnalyzing(false)
       setMessages((prev) => [
         ...prev,
         {
@@ -105,6 +102,8 @@ export default function IAPricingBot() {
           showButtons: true,
         },
       ])
+    } finally {
+      setIsAnalyzing(false)
     }
   }
 
@@ -175,7 +174,9 @@ export default function IAPricingBot() {
                   />
                 </div>
               )}
-              <div className="whitespace-pre-wrap break-words" dangerouslySetInnerHTML={{ __html: msg.content }} />
+              <pre className="whitespace-pre-wrap break-words font-sans m-0 p-0 bg-transparent">
+                {msg.content}
+              </pre>
               
               {msg.showButtons && (
                 <div className="mt-3 space-y-2">
