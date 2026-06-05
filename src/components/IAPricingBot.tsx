@@ -175,7 +175,7 @@ export default function IAPricingBot() {
                   />
                 </div>
               )}
-              <div className="break-words" dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br/>') }} />
+              <div className="whitespace-pre-wrap break-words" dangerouslySetInnerHTML={{ __html: msg.content }} />
               
               {msg.showButtons && (
                 <div className="mt-3 space-y-2">
