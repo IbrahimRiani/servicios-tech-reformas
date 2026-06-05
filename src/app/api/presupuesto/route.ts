@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       generationConfig: {
         temperature: 0.4,
         topP: 0.85,
-        maxOutputTokens: 600,
+        maxOutputTokens: 1000,
       }
     })
 
@@ -130,6 +130,15 @@ Genera los 4 bloques en texto plano.`
     ])
 
     const responseText = result.response.text()
+    const finishReason = result.response.candidates?.[0]?.finishReason
+    const safetyRatings = result.response.candidates?.[0]?.safetyRatings
+    
+    console.log('=== GEMINI RAW RESPONSE DEBUG ===')
+    console.log('LENGTH:', responseText.length)
+    console.log('FINISH_REASON:', finishReason)
+    console.log('SAFETY:', JSON.stringify(safetyRatings))
+    console.log('FULL_TEXT:', responseText)
+    console.log('=== END DEBUG ===')
 
     return NextResponse.json({
       success: true,
