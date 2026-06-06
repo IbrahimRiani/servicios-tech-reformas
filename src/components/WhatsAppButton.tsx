@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
       href={waLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] border-2 border-[#128C7E] flex items-center justify-center hover:bg-[#128C7E] transition-colors"
+      className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] flex items-center justify-center hover:bg-[#128C7E] transition-all duration-300 rounded-full shadow-2xl hover:scale-110"
       aria-label="Chatear en WhatsApp"
     >
       <MessageCircle className="w-8 h-8 text-white" strokeWidth={2.5} />

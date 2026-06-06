@@ -35,8 +35,10 @@ export default function SuccessCases() {
   return (
     <section className="py-16 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-12 border-b-2 border-[#111111] pb-6">
-          <div className="text-xs font-bold uppercase text-[#E65100] mb-2 tracking-widest">Portfolio</div>
+        <div className="mb-12 text-center">
+          <div className="inline-block bg-[#FF6600] text-white px-4 py-2 rounded-full mb-4 text-xs font-bold uppercase tracking-widest">
+            Portfolio
+          </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-[#111111] uppercase">
             Trabajos Realizados
           </h2>
@@ -44,11 +46,11 @@ export default function SuccessCases() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {cases.map((item, index) => (
-            <div 
+            <div
               key={index}
-              className="bg-white border-2 border-[#d4d4d4] hover:border-[#E65100] transition-colors overflow-hidden group"
+              className="bg-white border border-[#d4d4d4] hover:border-[#FF6600] rounded-2xl overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
-              <div className="relative h-48 w-full border-b-2 border-[#d4d4d4]">
+              <div className="relative h-48 w-full">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -56,13 +58,13 @@ export default function SuccessCases() {
                   className="object-cover"
                 />
               </div>
-              
+
               <div className="p-4">
-                <div className="flex items-center gap-1 mb-2 text-[#E65100]">
+                <div className="flex items-center gap-1 mb-2 text-[#FF6600]">
                   <MapPin className="w-3 h-3" strokeWidth={3} />
                   <p className="text-[10px] font-bold uppercase tracking-widest">{item.location}</p>
                 </div>
-                <h3 className="text-base font-extrabold text-[#111111] mb-2 uppercase group-hover:text-[#E65100] transition-colors">{item.title}</h3>
+                <h3 className="text-base font-extrabold text-[#111111] mb-2 uppercase group-hover:text-[#FF6600] transition-colors">{item.title}</h3>
                 <p className="text-xs text-[#333333] leading-relaxed">{item.description}</p>
               </div>
             </div>
@@ -70,9 +72,9 @@ export default function SuccessCases() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link 
+          <Link
             href="/contacto"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#E65100] border-2 border-[#E65100] text-white font-bold uppercase text-sm tracking-wide hover:bg-[#FF6600] hover:border-[#FF6600] transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#FF6600] text-white font-bold uppercase text-sm tracking-wide rounded-xl hover:bg-[#E65100] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
             Solicitar Presupuesto <ArrowRight className="w-5 h-5" strokeWidth={3} />
           </Link>

@@ -135,14 +135,14 @@ export default function IAPricingBot() {
   }
 
   return (
-    <div className="flex flex-col h-full w-full bg-white">
-      <div className="px-4 py-3 border-b-2 border-[#E65100] flex items-center gap-3 bg-[#F5F5F5] flex-shrink-0">
-        <div className="w-10 h-10 bg-[#E65100] flex items-center justify-center rounded-sm">
+    <div className="flex flex-col h-full w-full bg-white rounded-3xl overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#FF6600]/20 flex items-center gap-3 bg-gradient-to-r from-[#F5F5F5] to-white flex-shrink-0">
+        <div className="w-10 h-10 bg-[#FF6600] flex items-center justify-center rounded-xl shadow-md">
           <MessageSquare className="w-5 h-5 text-white" strokeWidth={2.5} />
         </div>
         <div>
           <p className="font-extrabold text-[#111111] uppercase text-sm">Asesor Técnico</p>
-          <p className="text-xs text-[#E65100] font-bold uppercase tracking-wide">Presupuesto sin compromiso</p>
+          <p className="text-xs text-[#FF6600] font-bold uppercase tracking-wide">Presupuesto sin compromiso</p>
         </div>
       </div>
 
@@ -156,9 +156,9 @@ export default function IAPricingBot() {
             className={`flex gap-2 w-full ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
           >
             <div
-              className={`w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-sm ${
-                msg.role === 'bot' 
-                  ? 'bg-[#E65100]' 
+              className={`w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-xl ${
+                msg.role === 'bot'
+                  ? 'bg-[#FF6600]'
                   : 'bg-[#111111]'
               }`}
             >
@@ -171,12 +171,12 @@ export default function IAPricingBot() {
             <div
               className={`min-w-0 max-w-[80%] p-3 text-sm leading-relaxed ${
                 msg.role === 'bot'
-                  ? 'bg-[#F5F5F5] text-[#111111] border border-[#d4d4d4]'
-                  : 'bg-[#E65100] text-white'
+                  ? 'bg-[#F5F5F5] text-[#111111] rounded-2xl rounded-tl-sm border border-[#d4d4d4]'
+                  : 'bg-[#FF6600] text-white rounded-2xl rounded-tr-sm'
               }`}
             >
               {msg.image && (
-                <div className="mb-2 border border-[#d4d4d4]">
+                <div className="mb-2 rounded-xl overflow-hidden border border-[#d4d4d4]">
                   <Image
                     src={msg.image}
                     alt="Imagen subida"
@@ -189,26 +189,26 @@ export default function IAPricingBot() {
               <pre className="whitespace-pre-wrap break-words font-sans m-0 p-0 bg-transparent">
                 {msg.content}
               </pre>
-              
+
               {msg.showButtons && (
                 <div className="mt-3 space-y-2">
                   <a
                     href="https://wa.me/34644702250?text=Hola!%20He%20analizado%20mi%20reforma%20en%20la%20web%20y%20quiero%20agendar%20una%20visita"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full py-3 px-3 bg-[#25D366] border-2 border-[#128C7E] text-white font-bold uppercase text-xs tracking-wide hover:bg-[#128C7E] transition-colors text-center"
+                    className="block w-full py-3 px-3 bg-[#25D366] text-white font-bold uppercase text-xs tracking-wide rounded-xl hover:bg-[#128C7E] transition-colors text-center shadow-md"
                   >
                     Agendar Visita (WhatsApp)
                   </a>
                   <a
                     href="tel:+34694059232"
-                    className="block w-full py-3 px-3 bg-[#1a2942] border-2 border-[#1a2942] text-white font-bold uppercase text-xs tracking-wide hover:bg-[#0f1a2e] transition-colors text-center"
+                    className="block w-full py-3 px-3 bg-[#1a2942] text-white font-bold uppercase text-xs tracking-wide rounded-xl hover:bg-[#0f1a2e] transition-colors text-center shadow-md"
                   >
                     Llamar al Técnico
                   </a>
                   <button
                     onClick={handleConfirm}
-                    className="block w-full py-3 px-3 bg-white border-2 border-[#111111] text-[#111111] font-bold uppercase text-xs tracking-wide hover:bg-[#111111] hover:text-white transition-colors text-center"
+                    className="block w-full py-3 px-3 bg-white border-2 border-[#111111] text-[#111111] font-bold uppercase text-xs tracking-wide rounded-xl hover:bg-[#111111] hover:text-white transition-colors text-center"
                   >
                     Solicitar Visita Técnica
                   </button>
@@ -219,12 +219,12 @@ export default function IAPricingBot() {
         ))}
         {isAnalyzing && (
           <div className="flex gap-2 w-full">
-            <div className="w-8 h-8 bg-[#E65100] flex items-center justify-center flex-shrink-0 rounded-sm">
+            <div className="w-8 h-8 bg-[#FF6600] flex items-center justify-center flex-shrink-0 rounded-xl">
               <Bot className="w-4 h-4 text-white" strokeWidth={2.5} />
             </div>
-            <div className="bg-[#F5F5F5] border border-[#d4d4d4] p-3">
+            <div className="bg-[#F5F5F5] border border-[#d4d4d4] rounded-2xl rounded-tl-sm p-3">
               <div className="flex items-center gap-2">
-                <Loader2 className="w-4 h-4 text-[#E65100] animate-spin" />
+                <Loader2 className="w-4 h-4 text-[#FF6600] animate-spin" />
                 <span className="text-[#111111] text-xs font-bold uppercase tracking-wide">Analizando proyecto...</span>
               </div>
             </div>
@@ -232,14 +232,14 @@ export default function IAPricingBot() {
         )}
       </div>
 
-      <div className="p-3 border-t-2 border-[#111111] bg-white flex-shrink-0">
+      <div className="p-3 border-t border-[#d4d4d4] bg-white flex-shrink-0">
         <div className="flex gap-2">
           <button
             onClick={handleImageUpload}
-            className="p-3 bg-[#F5F5F5] hover:bg-[#E65100] hover:text-white transition-colors border-2 border-[#d4d4d4] hover:border-[#E65100]"
+            className="p-3 bg-[#F5F5F5] hover:bg-[#FF6600] hover:text-white transition-all duration-200 border border-[#d4d4d4] hover:border-[#FF6600] rounded-xl shadow-sm hover:shadow-md"
             title="Subir imagen"
           >
-            <Upload className="w-5 h-5 text-[#111111] hover:text-white" strokeWidth={2.5} />
+            <Upload className="w-5 h-5 text-[#111111]" strokeWidth={2.5} />
           </button>
           <input
             type="text"
@@ -247,12 +247,12 @@ export default function IAPricingBot() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Describe tu proyecto..."
-            className="flex-1 min-w-0 bg-white px-4 py-3 text-sm text-[#111111] placeholder-[#999] focus:outline-none focus:ring-0 border-2 border-[#d4d4d4] focus:border-[#E65100]"
+            className="flex-1 min-w-0 bg-[#F5F5F5] px-4 py-3 text-sm text-[#111111] placeholder-[#999] focus:outline-none focus:ring-2 focus:ring-[#FF6600] border border-transparent focus:border-[#FF6600] rounded-2xl"
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isAnalyzing}
-            className="p-3 bg-[#E65100] text-white hover:bg-[#FF6600] transition-colors disabled:opacity-50 disabled:cursor-not-allowed border-2 border-[#E65100]"
+            className="p-3 bg-[#FF6600] text-white hover:bg-[#E65100] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl shadow-md hover:shadow-lg"
           >
             <Send className="w-5 h-5" strokeWidth={2.5} />
           </button>
