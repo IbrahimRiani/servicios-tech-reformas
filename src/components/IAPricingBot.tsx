@@ -17,7 +17,7 @@ export default function IAPricingBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      content: '¡Hola! Soy tu asesor técnico. Cuéntame qué reforma necesitas.',
+      content: '¡Hola! Soy el asesor inteligente de ReformasPro. 🛠️ Sube una foto de la estancia que quieras reformar (baño, cocina, salón...) o cuéntame qué tienes en mente, y te preparo un diagnóstico técnico en un momento.',
     },
   ])
   const [input, setInput] = useState('')

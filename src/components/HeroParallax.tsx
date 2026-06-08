@@ -54,9 +54,9 @@ export default function HeroParallax() {
             Presupuesto instantáneo con IA
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] text-[#111111] uppercase max-w-5xl mx-auto">
-            ¿Quieres <span className="text-[#FF6600]">pintar</span>, <span className="text-[#FF6600]">alisar</span> o <span className="text-[#FF6600]">renovar</span> tu casa?<br />
-            <span className="text-[#111111] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Sube una foto y nuestra IA calcula lo que necesitas en <span className="text-[#FF6600]">30 segundos</span>.</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] text-[#111111] max-w-5xl mx-auto">
+            Consigue el <span className="text-[#FF6600]">diagnóstico técnico</span> y <span className="text-[#FF6600]">presupuesto estimado</span><br />
+            <span className="text-[#111111] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">de tu reforma en <span className="text-[#FF6600]">2 minutos</span> con IA</span>
           </h1>
         </div>
 
